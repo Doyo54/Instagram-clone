@@ -21,8 +21,10 @@
             {% bootstrap_form form%}
 
             <div class="form-group">
-              <button  class="login-button" title="login">Log In</button>
+              <button type="submit" class="login-button" title="login" value="Login">Log In</button>
             </div>
+            <input type="hidden" name="next" value="{{next}}">
+            
             <div class="separator">
               <div class="line"></div>
               <p>OR</p>
@@ -44,7 +46,7 @@
 
       </div>
       <div class="box">
-        <p class="text-center">Don't have an account? <a class="signup" href="/">Create an account</a>.</p>
+        <p class="text-center">Don't have an account? <a class="signup" href="/accounts/register">Create an account</a>.</p>
         </div>
     </div>
     

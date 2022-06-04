@@ -22,7 +22,7 @@ urlpatterns = [
     re_path(r'^admin/', admin.site.urls),
     re_path(r'^accounts/', include('django_registration.backends.one_step.urls')),
     re_path(r'^accounts/', include('django.contrib.auth.urls')),
-    re_path(r'^accounts/register/',views.register, name='register'),
+    re_path(r'^accounts/profile/',views.index, name='register'),
     re_path(r'',include('app.urls')),
     re_path(r'^tinymce/', include('tinymce.urls')),
 ]
