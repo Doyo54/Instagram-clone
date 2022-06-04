@@ -20,7 +20,7 @@ from . import views
 
 urlpatterns = [
  
-    re_path(r'^$',views.index,name='index'),
+    re_path(r'^$',views.register,name='index'),
 
 ]   
 if settings.DEBUG:

@@ -1,7 +1,7 @@
 {%extends "django_registration/base.html"%}
 {% load bootstrap3 %}
 {% block content %}
-<div class="container">
+<div class="container" style="font-size: 20px;">
   <div class="row">
     <!-- Empty div -->
     <div class="col-md-4"></div>
@@ -12,7 +12,7 @@
       <div class="panel panel-default">
 
         <div class="panel-heading">
-          <h3 class="text-center">Sign In</h3>
+          <h3 class="text-center">Instagram</h3>
         </div>
         <div class="panel-body">
 
@@ -21,20 +21,36 @@
             {% bootstrap_form form%}
 
             <div class="form-group">
-              <input type="submit" class="btn btn-primary btn-sm" value="Login">
+              <button class="login-button" title="login">Log In</button>
             </div>
+            <div class="separator">
+              <div class="line"></div>
+              <p>OR</p>
+              <div class="line"></div>
+            </div>
+          <div class="other">
+            <button class="fb-login-btn" type="button">
+              <i class="fa fa-facebook-official fb-icon"></i>
+              <span class="">Log in with Facebook</span>
+            </button>
+            <a class="forgot-password" href="#">Forgot password?</a>
+          </div>
 
             <input type="hidden" name="next" value="{{next}}">
 
           </form>
-          <p class="text-center">Don't have an account? <a href="/accounts/register">Create an account</a>.</p>
+          
         </div>
 
       </div>
-
+      <div class="box">
+        <p class="text-center">Don't have an account? <a class="signup" href="/">Create an account</a>.</p>
+        </div>
     </div>
+    
     <!-- empty div -->
     <div class="col-md-4">
+      
     </div>
   </div>
 </div>
