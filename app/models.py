@@ -39,7 +39,7 @@ class InstagramPost(models.Model):
     editor = models.ForeignKey(Profile,on_delete=models.CASCADE)
     pub_date = models.DateTimeField(auto_now_add=True)
     likes = models.ManyToManyField(User, related_name='likes', blank=True, )
-    instagram_image = models.ImageField(upload_to='post/', blank=True) 
+    image = models.ImageField(upload_to='post/', blank=True) 
     class Meta:
         ordering = ["-pk"]
 

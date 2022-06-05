@@ -1,6 +1,7 @@
 from django_registration.forms import RegistrationForm,UserCreationForm
 from django import forms
 from django.contrib.auth.models import User
+from .models import InstagramPost
 
 
 class RegisterForm(UserCreationForm):
@@ -45,4 +46,9 @@ class Meta:
  fields = [
  'username', 'email', 'first_name', 'last_name', 'password1', 'password2', 'check',
  ]
+
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = InstagramPost
+        fields = ('image', 'description')
 
