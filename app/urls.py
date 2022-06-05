@@ -22,6 +22,7 @@ from . import views
 urlpatterns = [
  
     path(r'^$',views.index,name='index'),
+    path(r'^search/', views.search_profile, name='search'),
 
 ]   
 if settings.DEBUG:
