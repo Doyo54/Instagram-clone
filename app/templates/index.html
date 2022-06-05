@@ -37,25 +37,28 @@
             </div>
 
             {% for image in images %}
-            <div class="card mb-4">
-                <div class="card-title">
-                    <img src="{{image.user.profile_picture.url}}" class="rounded-circle border ml-3 mt-2  mr-3"
-                         alt="{{image.user.user.username}}" width="35" height="35">
-                    <a href="#" class="mt-4 user">{{image.user.user.username|title}}</a>
-                </div>
+            
+            <div style="margin-top: 5%;" class="card">
+                
+                    <h1 class="card-header">
+                        <img src="{{image.editor.profile_picture.url}}" style="border-radius:50%; width: 8%;">
+                        {{image.editor.user}}
+                    </h1>
+                
                 <div class="card-body mb-4">
                     <a href="#"><div class="card-text"
                          style="background-size: contain;position: sticky">
                         <img src="{{image.image.url}}" class="card-img" width="100%"/>
+                        <h5>{{image.description}}</h5>
                     </div></a>
                 </div>
                 <div class="iconic ml-2">
                     <button class="btn btn-sm" type="submit" name="image_id" value="{{image.id}}">
-                        <a href="#"><i class="far fa-heart hearticon mx-auto"
+                        <a href="#"><i class="fa fa-heart hearticon mx-auto"
                                                                   aria-hidden="true"></i></a>
                     </button>
                     <button class="btn btn-sm" type="submit"><a href="#"><i
-                            class="far fa-comment hearticon mx-auto" aria-hidden="true"></i>
+                            class="fa fa-comment hearticon mx-auto" aria-hidden="true"></i>
                     </a></button>
                 </div>
                 <span class="ml-4 mb-1"><strong>{{image.likes.count}} like{{image.likes.count|pluralize}}</strong></span>
@@ -74,44 +77,7 @@
             </div>
             {% endfor %}
         </div>
-        <div class="col-md-4 mt-4 userinfo">
-            <div class="row">
-                <div class="col-md-3 ml-2">
-                  
-                </div>
-                <div class="col-md-6 mt-4 user-detail">
-                    <span class=" text-secondary"><a
-                            href="#">{{ user.username }}</a></span> <br>
-                    <span class=" inname">{{ user.profile.name }}</span>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-10">
-                    <div class="card mt-4 mr-2 ml-2">
-                        <div class="card-title text-secondary mt-2 mr-2 ml-2 ">Suggestions</div>
-                        {% for user in users %}
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-2 mr-3 mt-1 mb-2">
-                                    <img class="rounded-circle" src="{{ user.profile.profile_picture.url }}"
-                                         width="45px" height="45px">
-                                </div>
-                                <div class="col-md-6 mr-2 mt-2">
-                                    <span><a href="#">{{user.username}}</a></span>
-                                </div>
-                                <div class="col-md-4">
-                                </div>
-                            </div>
-                        </div>
-
-                        {% endfor %}
-                    </div>
-                </div>
-                <div class="col-md-2"></div>
-            </div>
-
-
-        </div>
+  
 
     </div>
 

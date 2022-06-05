@@ -1,5 +1,4 @@
-from django.shortcuts import render, redirect,HttpResponseRedirect
-from django.contrib import messages
+from django.shortcuts import render, redirect
 from .forms import PostForm
 from .models import Profile,InstagramPost
 from django.contrib.auth.models import User
@@ -8,6 +7,7 @@ from django.contrib.auth.models import User
 def index(request):
     current_user = request.user.profile
     images = InstagramPost.objects.all()
+    profiles = Profile.objects.all()
     users = User.objects.exclude(id=request.user.id)
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
@@ -15,32 +15,15 @@ def index(request):
             post = form.save(commit=False)
             post.editor = current_user
             post.save()
-            return HttpResponseRedirect(request.path_info)
+            return redirect('index')
     else:
         form = PostForm()
     params = {
         'images': images,
         'form': form,
         'users': users,
-
+        'profiles': profiles,
     }
     return render(request, 'index.html',params)
 
-# def register(request):
-#     if request.method == 'GET':
-#         form  = RegisterForm()
-#         context = {'form': form}
-#         return render(request, 'django_registration/registration_form.html', context)
-#     if request.method == 'POST':
-#         form  = RegisterForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             user = form.cleaned_data.get('username')
-#             messages.success(request, 'Account was created for ' + user)
-#         return redirect('index')
-#     else:
-#         print('Form is not valid')
-#         messages.error(request, 'Error Processing Your Request')
-#     context = {'form': form}
-#     return render(request, 'django_registration/registration_form.html', context)
 
