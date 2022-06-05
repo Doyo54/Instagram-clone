@@ -1,11 +1,63 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
+    profile_picture = models.ImageField(upload_to='images/', blank=True)
+    bio = models.TextField(max_length=500, default="My Bio", blank=True)
+    name = models.CharField(blank=True, max_length=120)
+    location = models.CharField(max_length=60, blank=True)
+
+    def __str__(self):
+        return f'{self.user.username} Profile'
+
+    @receiver(post_save, sender=User)
+    def create_user_profile(sender, instance, created, **kwargs):
+        if created:
+            Profile.objects.create(user=instance)
+
+    @receiver(post_save, sender=User)
+    def save_user_profile(sender, instance, **kwargs):
+        instance.profile.save()
+
+    def save_profile(self):
+        self.user
+
+    def delete_profile(self):
+        self.delete()
+
+    @classmethod
+    def search_profile(cls, name):
+        return cls.objects.filter(user__username__icontains=name).all()
 
 # Create your models here.
 class InstagramPost(models.Model):
     title = models.CharField(max_length=60)
     description = models.TextField()
-    editor = models.ForeignKey(User,on_delete=models.CASCADE)
+    editor = models.ForeignKey(Profile,on_delete=models.CASCADE)
     pub_date = models.DateTimeField(auto_now_add=True)
-    instagram_image = models.ImageField(upload_to='articles/', blank=True)
+    likes = models.ManyToManyField(User, related_name='likes', blank=True, )
+    instagram_image = models.ImageField(upload_to='post/', blank=True) 
+    class Meta:
+        ordering = ["-pk"]
+
+    def get_absolute_url(self):
+        return f"/post/{self.id}"
+
+
+    def save_image(self):
+        self.save()
+
+    def delete_image(self):
+        self.delete()
+
+    def total_likes(self):
+        return self.likes.count()
+
+    def __str__(self):
+        return f'{self.editor.name} Post'
+
+ 
 
