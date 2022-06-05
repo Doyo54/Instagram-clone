@@ -5,7 +5,7 @@ from django.dispatch import receiver
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
-    profile_picture = models.ImageField(upload_to='images/', blank=True)
+    profile_picture = models.ImageField(upload_to='images/',default='default.png')
     bio = models.TextField(max_length=500, default="My Bio", blank=True)
     name = models.CharField(blank=True, max_length=120)
     location = models.CharField(max_length=60, blank=True)
@@ -17,6 +17,10 @@ class Profile(models.Model):
     def create_user_profile(sender, instance, created, **kwargs):
         if created:
             Profile.objects.create(user=instance)
+            
+    @receiver(post_save, sender=User)
+    def save_user_profile(sender, instance, **kwargs):
+        instance.profile.save()
 
     def save_profile(self):
         self.user
@@ -32,7 +36,7 @@ class Profile(models.Model):
 class InstagramPost(models.Model):
     title = models.CharField(max_length=60)
     description = models.TextField()
-    editor = models.ForeignKey(Profile,on_delete=models.CASCADE)
+    user = models.ForeignKey(Profile,on_delete=models.CASCADE,related_name='posts')
     pub_date = models.DateTimeField(auto_now_add=True)
     likes = models.ManyToManyField(User, related_name='likes', blank=True, )
     image = models.ImageField(upload_to='post/', blank=True) 
@@ -53,7 +57,14 @@ class InstagramPost(models.Model):
         return self.likes.count()
 
     def __str__(self):
-        return f'{self.editor.name} Post'
+        return f'{self.user.name} Post'
+        
+class Follow(models.Model):
+    follower = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='following')
+    followed = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='followers')
+
+    def __str__(self):
+        return f'{self.follower} Follow'
 
  
 

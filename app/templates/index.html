@@ -37,12 +37,14 @@
             </div>
 
             {% for image in images %}
+  
             
             <div style="margin-top: 5%;" class="card">
-                
+                 
                     <h1 class="card-header">
-                        <img src="{{image.editor.profile_picture.url}}" style="border-radius:50%; width: 8%;">
-                        {{image.editor.user}}
+                        <img src="{{image.user.profile_picture.url}}" style="border-radius:50%; width: 8%;">
+                       
+                        {{image.user.name}}
                     </h1>
                 
                 <div class="card-body mb-4">
