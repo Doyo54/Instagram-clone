@@ -1,10 +1,30 @@
-from django.shortcuts import render, redirect
-
+from django.shortcuts import render, redirect,HttpResponseRedirect
+from django.contrib import messages
+from .forms import PostForm
+from .models import Profile,InstagramPost
+from django.contrib.auth.models import User
 
 # Create your views here.
 def index(request):
-  
-    return render(request, 'index.html')
+    current_user = request.user.profile
+    images = InstagramPost.objects.all()
+    users = User.objects.exclude(id=request.user.id)
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.editor = current_user
+            post.save()
+            return HttpResponseRedirect(request.path_info)
+    else:
+        form = PostForm()
+    params = {
+        'images': images,
+        'form': form,
+        'users': users,
+
+    }
+    return render(request, 'index.html',params)
 
 # def register(request):
 #     if request.method == 'GET':
