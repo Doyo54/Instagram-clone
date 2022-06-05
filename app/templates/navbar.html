@@ -4,9 +4,10 @@
     <i class="fa fa-instagram" aria-hidden="true"></i>
       </a>
     </div>
+    <form method="get" action="/search">
     <div class="navigation-search-container">
       <i class="fa fa-search"></i>
-      <input class="search-field" type="text" placeholder="Search">
+      <input name="search" class="search-field" type="text" placeholder="Search">
       <div class="search-container">
         <div class="search-container-box">
           <div class="search-results">
@@ -15,6 +16,7 @@
         </div>
       </div>
     </div>
+    </form>
     {% if user.is_authenticated %}
     <div class="navigation-icons">
       
