@@ -27,5 +27,21 @@ def index(request):
     return render(request, 'index.html',params)
 
 
+def search_profile(request):
+    if 'search' in request.GET and request.GET['search']:
+        name = request.GET.get("search")
+        results = Profile.search_profile(name)
+        print(results)
+        message = f'name'
+        params = {
+            'results': results,
+            'message': message
+        }
+        return render(request, 'search_results.html', params)
+    else:
+        message = "You haven't searched for any User"
+    return render(request, 'search_results.html', {'message': message})
+
+
 
 
