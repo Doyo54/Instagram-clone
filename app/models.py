@@ -15,7 +15,7 @@ class Profile(models.Model):
 
     @classmethod
     def update_profile(cls, id, value):
-        cls.objects.filter(id=id).update(profile=value)
+        cls.objects.filter(id=id).update(profile_picture=value)
 
     @receiver(post_save, sender=User)
     def create_user_profile(sender, instance, created, **kwargs):
@@ -50,7 +50,7 @@ class InstagramPost(models.Model):
         return profile
 
     def save_image(self):
-        self.save()
+        self.image
     
     @classmethod
     def update_image(cls, id, value):

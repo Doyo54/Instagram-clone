@@ -1,6 +1,6 @@
-from email.mime import image
 from django.test import TestCase
-from .models import Profile,InstagramPost,Comment
+from django.contrib.auth.models import User
+from .models import Profile,InstagramPost
 
 class testInstagramPost(TestCase):
     def setUp(self):
@@ -16,9 +16,6 @@ class testInstagramPost(TestCase):
     def test_instance(self):
         self.assertTrue(isinstance(self.image_test, InstagramPost))
 
-    def test_save_image(self):
-        after = InstagramPost.objects.all()
-        self.assertTrue(len(after) > 0)
 
     def test_delete_image(self):
         self.image_test.delete_image()
@@ -26,6 +23,7 @@ class testInstagramPost(TestCase):
         self.assertTrue(len(images) == 0)
 
     def test_update_image(self):
+        self.image_test.save_image()
         self.image_test.update_image(self.image_test.id, 'image/test.jpg')
         changed_img = InstagramPost.objects.filter(image='image/test.jpg')
         self.assertTrue(len(changed_img) == 0)
@@ -35,3 +33,24 @@ class testInstagramPost(TestCase):
         Profile.objects.all().delete()
 
 
+class TestProfile(TestCase):
+    def setUp(self):
+        self.user = User(username='doyo')
+        self.user.save()
+
+        self.profile_test = Profile(id=10, name='image', profile_picture='default.jpg', bio='this is a test profile',
+                                    user=self.user)
+
+    def test_instance(self):
+        self.assertTrue(isinstance(self.profile_test, Profile))
+
+    def test_save_profile(self):
+        self.profile_test.save_profile()
+        after = Profile.objects.all()
+        self.assertTrue(len(after) > 0)
+    
+    def test_update_profile(self):
+        self.profile_test.save_profile()
+        self.profile_test.update_profile(self.profile_test.id, 'image/test.jpg')
+        changed_img = Profile.objects.filter(profile_picture='image/test.jpg')
+        self.assertTrue(len(changed_img) == 0)
