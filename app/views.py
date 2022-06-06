@@ -1,5 +1,5 @@
-from django.shortcuts import render, redirect,HttpResponseRedirect
-from .forms import PostForm,UpdateUserProfileForm
+from django.shortcuts import render, redirect,HttpResponseRedirect,get_object_or_404
+from .forms import PostForm,UpdateUserProfileForm,CommentForm
 from .models import Profile,InstagramPost
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
@@ -71,6 +71,30 @@ def update_profile(request, username):
 
     }
     return render(request, 'profile.html', params)
+
+
+def post_comment(request, id):
+    image = get_object_or_404(InstagramPost, pk=id)
+    is_liked = False
+    if image.likes.filter(id=request.user.id).exists():
+        is_liked = True
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            savecomment = form.save(commit=False)
+            savecomment.post = image
+            savecomment.user = request.user.profile
+            savecomment.save()
+            return HttpResponseRedirect(request.path_info)
+    else:
+        form = CommentForm()
+    params = {
+        'image': image,
+        'form': form,
+        'is_liked': is_liked,
+        'total_likes': image.total_likes()
+    }
+    return render(request, 'comment.html', params)
 
 
 
