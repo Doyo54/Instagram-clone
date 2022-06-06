@@ -46,6 +46,10 @@ class InstagramPost(models.Model):
     def get_absolute_url(self):
         return f"/post/{self.id}"
 
+    @classmethod
+    def get_Profile(cls, user):
+        profile = InstagramPost.objects.filter(user__user=user).all()
+        return profile
 
     def save_image(self):
         self.save()

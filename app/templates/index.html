@@ -74,7 +74,7 @@
                     </div>
                     {% empty %}
                     {% endfor %}
-                    <p class="text-secondary ml-4">{{image.created|timesince}}</p>
+                    <p class="text-secondary ml-4">{{image.pub_date|timesince}} ago</p>
                 </div>
             </div>
             {% endfor %}
