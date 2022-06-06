@@ -2,8 +2,10 @@ from django.shortcuts import render, redirect,HttpResponseRedirect
 from .forms import PostForm,UpdateUserProfileForm
 from .models import Profile,InstagramPost
 from django.contrib.auth.models import User
-
+from django.contrib.auth.decorators import login_required
 # Create your views here.
+
+@login_required(login_url='/accounts/login')
 def index(request):
     current_user = request.user.profile
     images = InstagramPost.objects.all()
