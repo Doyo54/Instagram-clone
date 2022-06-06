@@ -41,7 +41,10 @@ def search_profile(request):
         message = "You haven't searched for any User"
     return render(request, 'search_results.html', {'message': message})
 
-
+def profile(request, username):
+    profiles = InstagramPost.get_Profile(username)
+    print(profiles)
+    return render(request, 'user_profile.html', {'profiles': profiles})
 
 
 
