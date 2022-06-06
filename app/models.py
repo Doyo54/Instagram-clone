@@ -40,7 +40,7 @@ class Profile(models.Model):
 class InstagramPost(models.Model):
     title = models.CharField(max_length=60)
     description = models.TextField()
-    user = models.ForeignKey(Profile,on_delete=models.CASCADE,related_name='posts')
+    user = models.ForeignKey(Profile,on_delete=models.CASCADE,related_name='posts', null=True)
     pub_date = models.DateTimeField(auto_now_add=True)
     likes = models.ManyToManyField(User, related_name='likes', blank=True, )
     image = models.ImageField(upload_to='post/', blank=True) 
