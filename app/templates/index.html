@@ -1,16 +1,10 @@
 {%extends 'base.html'%}
-
-{% load static %}
-
 {% block content %}
-<div class="container" style="margin-top:7%;">
+<div class="container" style="margin-top:8%;">
     <div class="row">
         <div class="col-md-1"></div>
-        <div class="col-md-7">
-            <div class="row">
-                <button style="float: right; font-size: x-large;" class="btn btn-sm btn-outline-primary" data-toggle="modal" data-target="#imageUpload">
-                    Upload Image
-                </button>
+        <div class="col-md-9">
+            <button data-toggle="modal" data-target="#imageUpload" class="button-64" role="button"><span class="text">Post</span></button>
                 <div class="modal fade" id="imageUpload" tabindex="-1" role="dialog"
                      aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -34,7 +28,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+           
 
             {% for image in images %}
   
@@ -42,17 +36,19 @@
             <div style="margin-top: 5%;" class="card">
                  
                     <h1 class="card-header">
+                        <a style="color: black; text-decoration: none;" href="{% url 'profile' image.user.user.id  %}">
                         <img src="{{image.user.profile_picture.url}}" style="border-radius:50%; width: 8%;">
                        
                         {{image.user.name}}
+                        </a>
                     </h1>
                 
                 <div class="card-body mb-4">
-                    <a href="#"><div class="card-text"
+                    <div class="card-text"
                          style="background-size: contain;position: sticky">
-                        <img src="{{image.image.url}}" class="card-img" width="100%"/>
-                        <h5>{{image.description}}</h5>
-                    </div></a>
+                        <img src="{{image.image.url}}" class="card-img" width="100%">
+                        <h3>{{image.description}}</h3>
+                    </div>
                 </div>
                 <div class="iconic ml-2">
                     <button class="btn btn-sm" type="submit" name="image_id" value="{{image.id}}">
@@ -63,8 +59,7 @@
                             class="fa fa-comment hearticon mx-auto" aria-hidden="true"></i>
                     </a></button>
                 </div>
-                <span class="ml-4 mb-1"><strong>{{image.likes.count}} like{{image.likes.count|pluralize}}</strong></span>
-                <span class="text-secondary ml-4 viewall"><a href="#">view all {{image.comments.count}} comment{{image.comments.count|pluralize}}</a></span>
+                <span style="font-size: large;" class="text-secondary ml-4 viewall"><a href="{% url 'comment' image.id %}">View all {{image.comments.count}} comment{{image.comments.count|pluralize}}</a></span>
                 <div class="allcomments mb-4">
                     {% for comment in image.comments.all|slice:'2' %}
                     <div class="comment">
@@ -74,12 +69,12 @@
                     </div>
                     {% empty %}
                     {% endfor %}
-                    <p class="text-secondary ml-4">{{image.pub_date|timesince}} ago</p>
+                    <p class="text-secondary ml-4">Posted: {{image.pub_date|date}}</p>
                 </div>
             </div>
             {% endfor %}
         </div>
-  
+        
 
     </div>
 

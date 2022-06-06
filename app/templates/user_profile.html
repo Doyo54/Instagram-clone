@@ -10,17 +10,10 @@
                         </a>
                     <div class="col-md-1"></div>
                     <div class="col-md-3">
-                        <img class="rounded-circle account-img" src="{{ user.profile.profile_picture.url }}" style="border-radius: 50%; width:80%;">
+                        <img class="rounded-circle account-img" src="{{ user.profile.profile_picture.url }}" style="border-radius: 50%; width:70%;">
                     </div>
                     <div class="col-md-6 mt-3">
-                        <div class="media-body">
-                            <div class="account-heading">
-                                <span class="mr-3 text-secondary username">{{ user_prof.username }}</span>
-                               
-                               
-                
-                            </div>
-                        </div>
+            
 
                         <div class="post-details mt-3 mb-3">
                             <span class="mr-5"><strong>{{user_prof.count}}</strong> Posts</span>
@@ -42,12 +35,14 @@
             <div class="col-md-6">
             <div class="card-body parent ">
                 <div class="im" style="float: left;">
-                <img src="{{image.image.url}}" style="width: 100%; height: 400px;" alt="{{image.caption}}" class="card-img">
+                <img src="{{image.image.url}}" style="width: 500px; height: 400px;" alt="{{image.caption}}" class="card-img">
                 <p style="font-size: large;" id="overlay"class="text"> 
                     {{image.description}}<br>
-                    <i class="fa fa-heart" style=" font-size: 20"></i> 
-                    <span >{{image.likes.count}}</span>
-                     <i class="fa fa-comment ml-4"></i></p>
+                    <i class="fa fa-heart" style=" font-size: large; color: purple;">
+                    <span >{{image.likes.count}}</span></i>
+                    <a style="text-decoration: none; color:purple; margin-left:2%;font-size:large;" href="{% url 'comment' image.id %}"><i
+                        class="fa fa-comment hearticon mx-auto" aria-hidden="true"> Comment</i>
+                </a>
             
                     </div>
                     </div>

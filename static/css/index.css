@@ -3,11 +3,13 @@ body {
   background: #fafafa;
 }
 
+/* CSS */
+
 /* start header */
 
 .navigation {
   background-color: #ffffff;
-  height: 80px;
+  height: 0px;
   position: fixed;
   width: 100%;
   top: 0;
