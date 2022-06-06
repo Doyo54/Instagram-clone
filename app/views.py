@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect,get_object_or_404,HttpResponseRedirect
+from django.shortcuts import render, redirect,HttpResponseRedirect
 from .forms import PostForm,UpdateUserProfileForm
 from .models import Profile,InstagramPost
 from django.contrib.auth.models import User
@@ -54,7 +54,21 @@ def profile(request, username):
 
         return render(request, 'user_profile.html', params)
 
+def update_profile(request, username):
+    images = request.user.profile.posts.all()
+    if request.method == 'POST':
+        prof_form = UpdateUserProfileForm(request.POST, request.FILES, instance=request.user.profile)
+        if  prof_form.is_valid():
+            prof_form.save()
+            return HttpResponseRedirect(request.path_info)
+    else:
+        prof_form = UpdateUserProfileForm(instance=request.user.profile)
+    params = {
+        'prof_form': prof_form,
+        'images': images,
 
+    }
+    return render(request, 'profile.html', params)
 
 
 
