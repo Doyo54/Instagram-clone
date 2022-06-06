@@ -1,6 +1,6 @@
 from django.contrib import admin
-from .models import Profile, InstagramPost,Follow
+from .models import Profile, InstagramPost
 
 admin.site.register(Profile)
 admin.site.register(InstagramPost)
-admin.site.register(Follow)
+
