@@ -23,6 +23,7 @@ urlpatterns = [
     
     path(r'^$',views.index,name='index'),
     path(r'^search/', views.search_profile, name='search'),
+    path(r'^profile/(?P<username>\w+)/', views.profile, name='profile'),
 
 ]   
 if settings.DEBUG:
