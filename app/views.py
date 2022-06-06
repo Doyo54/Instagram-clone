@@ -1,5 +1,5 @@
-from django.shortcuts import render, redirect
-from .forms import PostForm
+from django.shortcuts import render, redirect,get_object_or_404,HttpResponseRedirect
+from .forms import PostForm,UpdateUserProfileForm
 from .models import Profile,InstagramPost
 from django.contrib.auth.models import User
 
@@ -15,7 +15,7 @@ def index(request):
             post = form.save(commit=False)
             post.editor = current_user
             post.save()
-            return redirect('index')
+            return HttpResponseRedirect(request.path_info)
     else:
         form = PostForm()
     params = {
@@ -42,9 +42,19 @@ def search_profile(request):
     return render(request, 'search_results.html', {'message': message})
 
 def profile(request, username):
-    profiles = InstagramPost.get_Profile(username)
-    print(profiles)
-    return render(request, 'user_profile.html', {'profiles': profiles})
+        user_prof = InstagramPost.get_Profile(username)
+        if request.user == user_prof:
+           return redirect('update_profile', username=request.user.username)
+      
+    
+        params = {
+        'user_prof': user_prof,
+       
+         }
+
+        return render(request, 'user_profile.html', params)
+
+
 
 
 
