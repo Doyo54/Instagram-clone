@@ -29,7 +29,7 @@
           </div>
         </i>
       </a>
-      <a href="/" class="navigation-link">
+      <a href="{% url 'profile' user.id  %}" class="navigation-link">
         <i class="fa fa-user-circle">Profile</i>
       </a>
       <a href="/logout" id="signout" class="navigation-link">
