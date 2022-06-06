@@ -25,6 +25,8 @@ urlpatterns = [
     path(r'^search/', views.search_profile, name='search'),
     path(r'^update_profile/(?P<username>\w+)/', views.update_profile, name='update_profile'),
     path(r'^profile/(?P<username>\w+)/', views.profile, name='profile'),
+    path(r'^comment/(?P<id>\w+)/', views.post_comment, name='comment'),
+
 
 ]   
 if settings.DEBUG:
