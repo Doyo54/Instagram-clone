@@ -56,10 +56,10 @@
                 </div>
                 <div class="iconic ml-2">
                     <button class="btn btn-sm" type="submit" name="image_id" value="{{image.id}}">
-                        <a href="#"><i class="fa fa-heart hearticon mx-auto"
+                        <a href="#"> Like <i class="fa fa-heart hearticon mx-auto"
                                                                   aria-hidden="true"></i></a>
                     </button>
-                    <button class="btn btn-sm" type="submit"><a href="#"><i
+                    <button class="btn btn-sm" type="submit"><a href="{% url 'comment' image.id %}">Comment <i
                             class="fa fa-comment hearticon mx-auto" aria-hidden="true"></i>
                     </a></button>
                 </div>
