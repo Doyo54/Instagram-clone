@@ -13,6 +13,10 @@ class Profile(models.Model):
     def __str__(self):
         return f'{self.user.username} Profile'
 
+    @classmethod
+    def update_profile(cls, id, value):
+        cls.objects.filter(id=id).update(profile=value)
+
     @receiver(post_save, sender=User)
     def create_user_profile(sender, instance, created, **kwargs):
         if created:
@@ -68,6 +72,15 @@ class Follow(models.Model):
 
     def __str__(self):
         return f'{self.follower} Follow'
+
+class Comment(models.Model):
+    comment = models.TextField()
+    post = models.ForeignKey(InstagramPost, on_delete=models.CASCADE, related_name='comments')
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='comments')
+    created = models.DateTimeField(auto_now_add=True, null=True)
+
+    def __str__(self):
+        return f'{self.user.name} Post'
 
  
 
