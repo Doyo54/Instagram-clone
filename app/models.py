@@ -40,11 +40,6 @@ class InstagramPost(models.Model):
     pub_date = models.DateTimeField(auto_now_add=True)
     likes = models.ManyToManyField(User, related_name='likes', blank=True, )
     image = models.ImageField(upload_to='post/', blank=True) 
-    class Meta:
-        ordering = ["-pk"]
-
-    def get_absolute_url(self):
-        return f"/post/{self.id}"
 
     @classmethod
     def get_Profile(cls, user):
@@ -53,6 +48,10 @@ class InstagramPost(models.Model):
 
     def save_image(self):
         self.save()
+
+    @classmethod
+    def update_caption(cls, id, value):
+        cls.objects.filter(id=id).update(description=value)
 
     def delete_image(self):
         self.delete()
