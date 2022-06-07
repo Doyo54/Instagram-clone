@@ -9,11 +9,11 @@
                 </a>
             <div class="col-md-8 ml-3">
                
-                <img src="{{image.image.url}}" style="visibility: hidden;" class="card-img" width="100%"/>
+                <img src="{{image.image.url}}" class="card-img" width="100%"/>
             </div>
             <div class="col-md-3 mt-2">
                 <img src="{{image.user.profile_picture.url}}" class="rounded-circle border ml-3 mt-2  mr-3"
-                     alt="{{image.user.user.username}}" width="35" height="35">
+                     alt="{{image.user.user.username}}" width="100" height="100">
                 <a href="{% url 'profile' image.user.user.id %}" class="mt-4 user">{{image.user.user.username | title}}</a>
 
                 <hr style="width:96%">
@@ -37,6 +37,7 @@
                         </div>
                         <div class="col-md-2 mt-4" >
                             <button type="submit" class="btn btn-sm btn-outline-primary" style="margin-top:14px; margin-left:-10px">post</button>
+                            
                         </div>
                     </div>
 

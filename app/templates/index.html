@@ -18,8 +18,16 @@
                             <div class="modal-body">
                                 <form action="" method="post" enctype="multipart/form-data" novalidate>
                                     {% csrf_token %}
-                                    {{ form}}
-                                    <button class="btn btn-sm btn-success">Upload</button>
+                                    <div class="form-group" style="margin-bottom: 10%;">
+                                     
+                                        {{ form.image.label}}
+                                    {{ form.image}}
+                                    <div style="margin-top: 5%;">
+                                    {{form.description.label}}:
+                                    </div>
+                                        {{form.description}}
+                                    </div>
+                                    <button class="btn btn-sm btn-primary">Upload</button>
                                     <button type="button" class="btn btn-sm btn-outline-danger" data-dismiss="modal">
                                         Close
                                     </button>

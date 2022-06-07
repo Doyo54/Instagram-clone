@@ -5,7 +5,7 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = InstagramPost
         fields = ('image', 'description')
-
+        
 class UpdateUserProfileForm(forms.ModelForm):
     class Meta:
         model = Profile

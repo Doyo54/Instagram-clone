@@ -20,13 +20,13 @@ def index(request):
             return HttpResponseRedirect(request.path_info)
     else:
         form = PostForm()
-    params = {
+    loops = {
         'images': images,
         'form': form,
         'users': users,
         'profiles': profiles,
     }
-    return render(request, 'index.html',params)
+    return render(request, 'index.html',loops)
 
 
 def search_profile(request):
@@ -34,11 +34,11 @@ def search_profile(request):
         name = request.GET.get("search")
         results = Profile.search_profile(name)
         message = f'name'
-        params = {
+        loops = {
             'results': results,
             'message': message
         }
-        return render(request, 'search_results.html', params)
+        return render(request, 'search_results.html', loops)
     else:
         message = "You haven't searched for any User"
     return render(request, 'search_results.html', {'message': message})
@@ -48,13 +48,7 @@ def profile(request, username):
         if request.user == user_prof:
            return redirect('update_profile', username=request.user.username)
       
-    
-        params = {
-        'user_prof': user_prof,
-       
-         }
-
-        return render(request, 'user_profile.html', params)
+        return render(request, 'user_profile.html', {'user_prof': user_prof,})
 
 def update_profile(request, username):
     images = request.user.profile.posts.all()
@@ -65,19 +59,13 @@ def update_profile(request, username):
             return HttpResponseRedirect(request.path_info)
     else:
         prof_form = UpdateUserProfileForm(instance=request.user.profile)
-    params = {
-        'prof_form': prof_form,
-        'images': images,
-
-    }
-    return render(request, 'profile.html', params)
+  
+    return render(request, 'profile.html', {'prof_form': prof_form,'images': images,})
 
 
 def post_comment(request, id):
     image = get_object_or_404(InstagramPost, pk=id)
-    is_liked = False
-    if image.likes.filter(id=request.user.id).exists():
-        is_liked = True
+  
     if request.method == 'POST':
         form = CommentForm(request.POST)
         if form.is_valid():
@@ -88,13 +76,7 @@ def post_comment(request, id):
             return HttpResponseRedirect(request.path_info)
     else:
         form = CommentForm()
-    params = {
-        'image': image,
-        'form': form,
-        'is_liked': is_liked,
-        'total_likes': image.total_likes()
-    }
-    return render(request, 'comment.html', params)
+    return render(request, 'comment.html', { 'image': image,'form': form,})
 
 
 
